@@ -142,3 +142,5 @@ As migrações permitem evoluir o esquema do banco de dados de forma controlada 
 * **PhpMyAdmin:** `http://localhost:8080`
 * **Host:** `db` (nome do serviço no Docker Compose)
 * **Usuários/Senhas:** Definidos no arquivo `.env` (`DB_USER`, `DB_PASSWORD`, `DB_ROOT_PASSWORD`).
+
+https://gemini.google.com/app/754849c04970fe53
