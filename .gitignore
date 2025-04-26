@@ -1,0 +1,35 @@
+# .gitignore
+# Especifica arquivos e diretórios intencionalmente não rastreados pelo Git
+
+# Arquivos de ambiente
+#.env
+#*.env.*
+
+# Diretórios de ambiente virtual Python
+venv/
+*.venv
+
+# Arquivos de cache Python
+__pycache__/
+*.py[cod]
+
+# Arquivos de configuração de IDEs
+.vscode/
+.idea/
+
+# Arquivos de sistema operacional
+.DS_Store
+Thumbs.db
+
+# Arquivos de build e dependências locais (se não usar Docker exclusivamente)
+/dist
+/build
+*.egg-info/
+node_modules/
+
+# Logs
+*.log
+
+#data
+.docker/mysql/data
+
