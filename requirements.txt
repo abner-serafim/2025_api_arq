@@ -1,0 +1,10 @@
+# ./requirements.txt
+# Lista de dependências Python do projeto
+
+Flask>=2.0 # Framework web
+python-dotenv>=0.19 # Para carregar variáveis de ambiente do arquivo .env
+flasgger>=0.9 # Para integração com Swagger/OpenAPI
+Flask-SQLAlchemy>=3.0 # ORM e integração com Flask
+Flask-Migrate>=4.0 # Integração com Alembic para migrações de banco de dados
+mysql-connector-python>=8.0 # Conector MySQL
+Flask-CORS>=3.0 # Adiciona suporte para CORS

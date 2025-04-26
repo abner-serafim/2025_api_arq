@@ -1,0 +1,9 @@
+# docker-compose.override.yml
+# Define os serviços que compõem a aplicação: API, Banco de Dados e PhpMyAdmin
+
+services:
+  # Serviço da API Python/Flask
+  api:
+    environment:
+      FLASK_ENV: 'development'
+      FLASK_DEBUG: '1' # Habilita o modo debug

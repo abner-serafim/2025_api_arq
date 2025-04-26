@@ -1,0 +1,70 @@
+# docker-compose.yml
+# Define os serviços que compõem a aplicação: API, Banco de Dados e PhpMyAdmin
+
+services:
+  # Serviço do Banco de Dados MySQL
+  db:
+    image: mysql:8.0 # Usa a imagem oficial do MySQL versão 8.0
+    container_name: api_arq_db # Nome do container
+    restart: unless-stopped # Reinicia o container a menos que seja parado manualmente
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD} # Senha do usuário root (definida no .env)
+      MYSQL_DATABASE: ${DB_DATABASE}         # Nome do banco de dados a ser criado (definido no .env)
+      MYSQL_USER: ${DB_USER}                 # Nome do usuário do banco (definido no .env)
+      MYSQL_PASSWORD: ${DB_PASSWORD}         # Senha do usuário do banco (definido no .env)
+    ports:
+      - "3306:3306" # Mapeia a porta 3306 do host para a porta 3306 do container
+    volumes:
+      - ./.docker/mysql/data:/var/lib/mysql # Monta um volume para persistir os dados do MySQL
+    networks:
+      - api_arq_network # Conecta ao network definido abaixo
+
+  # Serviço da API Python/Flask
+  api:
+    container_name: api_arq_flask # Nome do container
+    build: . # Constrói a imagem a partir do Dockerfile no diretório atual
+    restart: unless-stopped
+    ports:
+      - "5000:5000" # Mapeia a porta 5000 do host para a porta 5000 do container (onde o Flask rodará)
+    environment:
+      # Variáveis de ambiente para a API (lidas do .env)
+      FLASK_APP: run.py
+      FLASK_ENV: 'production' # Define o ambiente como produção
+      FLASK_DEBUG: '0' # Desabilita o modo debug
+      # Configurações de conexão com o BD
+      DB_HOST: db # Nome do serviço do banco de dados no Docker Compose
+      DB_PORT: 3306
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_DATABASE: ${DB_DATABASE}
+      # Chave de API simples para autenticação
+      API_KEY: ${API_KEY}
+    volumes:
+      - ./app:/app/app # Monta o diretório 'app' local dentro do container em /app
+      - ./migrations:/app/migrations # Monta o diretório 'migrations' local dentro do container em /app/migrations
+      - ./run.py:/app/run.py # Monta o arquivo run.py
+    depends_on:
+      - db # Garante que o serviço 'db' inicie antes do serviço 'api'
+    networks:
+      - api_arq_network
+
+  # Serviço do PhpMyAdmin para gerenciamento do BD
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest # Usa a imagem oficial do PhpMyAdmin
+    container_name: api_arq_phpmyadmin
+    restart: unless-stopped
+    ports:
+      - "8888:80" # Mapeia a porta 8888 do host para a porta 80 do container
+    environment:
+      PMA_HOST: db # Aponta para o serviço do banco de dados 'db'
+      PMA_PORT: 3306
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD} # Necessário para login inicial se usar root
+    depends_on:
+      - db # Garante que o 'db' esteja pronto
+    networks:
+      - api_arq_network
+
+# Define a rede para comunicação entre os containers
+networks:
+  api_arq_network:
+    driver: bridge # Usa o driver de rede padrão (bridge)
