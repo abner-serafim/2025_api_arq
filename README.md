@@ -41,19 +41,14 @@ Esta é uma API REST desenvolvida em Python com Flask e SQLAlchemy para gerencia
     # Configurações do Banco de Dados MySQL
     DB_HOST=db
     DB_PORT=3306
-    DB_DATABASE=api_produtos_db
-    DB_USER=api_user
-    DB_PASSWORD=senha_segura_do_banco # TROQUE POR UMA SENHA FORTE
-    DB_ROOT_PASSWORD=senha_segura_do_root # TROQUE POR UMA SENHA FORTE
-
+    DB_DATABASE=api_arq_db
+    DB_USER=api_arq_user
+    DB_PASSWORD=123456
+    DB_ROOT_PASSWORD=123456
+    
     # Chave de API Simples (para autenticação básica)
     # Gere uma chave aleatória segura para produção
     API_KEY=minha-chave-secreta-123
-
-    # Configurações do Flask (controladas via docker-compose)
-    # FLASK_APP=run.py
-    # FLASK_ENV=development ou production
-    # FLASK_DEBUG=1 ou 0
     ```
     **Importante:** Adicione o arquivo `.env` ao seu `.gitignore` para não versionar informações sensíveis.
 
