@@ -12,8 +12,6 @@ services:
       MYSQL_DATABASE: ${DB_DATABASE}         # Nome do banco de dados a ser criado (definido no .env)
       MYSQL_USER: ${DB_USER}                 # Nome do usuário do banco (definido no .env)
       MYSQL_PASSWORD: ${DB_PASSWORD}         # Senha do usuário do banco (definido no .env)
-    ports:
-      - "3307:3306" # Mapeia a porta 3306 do host para a porta 3306 do container
     volumes:
       - ./.docker/mysql/data:/var/lib/mysql # Monta um volume para persistir os dados do MySQL
     networks:
@@ -33,7 +31,7 @@ services:
       FLASK_DEBUG: '0' # Desabilita o modo debug
       # Configurações de conexão com o BD
       DB_HOST: db # Nome do serviço do banco de dados no Docker Compose
-      DB_PORT: 3307
+      DB_PORT: 3306
       DB_USER: ${DB_USER}
       DB_PASSWORD: ${DB_PASSWORD}
       DB_DATABASE: ${DB_DATABASE}
@@ -54,10 +52,10 @@ services:
     container_name: api_arq_phpmyadmin
     restart: unless-stopped
     ports:
-      - "8888:80" # Mapeia a porta 8888 do host para a porta 80 do container
+      - "5001:80" # Mapeia a porta 8888 do host para a porta 80 do container
     environment:
       PMA_HOST: db # Aponta para o serviço do banco de dados 'db'
-      PMA_PORT: 3307
+      PMA_PORT: 3306
       MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD} # Necessário para login inicial se usar root
     depends_on:
       - db # Garante que o 'db' esteja pronto
