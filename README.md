@@ -2,6 +2,11 @@
 
 Esta é uma API REST desenvolvida em Python com Flask e SQLAlchemy para gerenciar dados de clientes, produtos e pedidos, destinada a ser consumida por parceiros. A aplicação segue o padrão MVC (adaptado para APIs) e utiliza Docker para facilitar a execução do ambiente completo (API, Banco de Dados MySQL, PhpMyAdmin).
 
+## Para testar
+
+* Acessar 'https://2025apiapk.abnerserafim.com.br/apidocs/'
+* chave API_KEY 'minha-chave-secreta-123'
+
 ## Funcionalidades
 
 * **Clientes:** CRUD completo (GET, GET por ID, POST, PUT, PATCH, DELETE), contagem e filtros.
